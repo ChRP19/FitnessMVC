@@ -1,8 +1,22 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FitnessMVC.CMD", "FitnessMVC.CMD\FitnessMVC.CMD.csproj", "{3B6348D0-0F8D-4037-B4BB-066DEB016654}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FitnessMVC.BL", "FitnessMVC.BL\FitnessMVC.BL.csproj", "{59E7913C-DD5E-41BA-BEB1-92CB7E6C5B7B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3B6348D0-0F8D-4037-B4BB-066DEB016654}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3B6348D0-0F8D-4037-B4BB-066DEB016654}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3B6348D0-0F8D-4037-B4BB-066DEB016654}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3B6348D0-0F8D-4037-B4BB-066DEB016654}.Release|Any CPU.Build.0 = Release|Any CPU
+		{59E7913C-DD5E-41BA-BEB1-92CB7E6C5B7B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{59E7913C-DD5E-41BA-BEB1-92CB7E6C5B7B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{59E7913C-DD5E-41BA-BEB1-92CB7E6C5B7B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{59E7913C-DD5E-41BA-BEB1-92CB7E6C5B7B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

@@ -3,6 +3,7 @@ using System.Reflection.Metadata;
 
 namespace FitnessMVC.BL.Model
 {
+	[Serializable]
 	public class User
 	{
 		public User(string name, Gender gender, DateTime birthday, double weight, double height)

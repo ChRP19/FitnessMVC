@@ -2,6 +2,7 @@
 
 namespace FitnessMVC.BL.Model
 {
+	[Serializable]
 	public class Gender
 	{
 		public Gender(string name)

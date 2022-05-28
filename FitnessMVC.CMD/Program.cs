@@ -9,23 +9,47 @@ namespace FitnessMVC.CMD
 		{
 			Console.WriteLine("Welcome to the FitnessMVC!");
 
-			Console.WriteLine("Enter username:");
+			Console.WriteLine("Enter username: ");
 			var name = Console.ReadLine();
 
-			Console.WriteLine("Enter gender:");
-			var gender = Console.ReadLine();
-			
-			Console.WriteLine("Enter birthdate:");
-			var birthdate = DateTime.Parse(Console.ReadLine());
-			
-			Console.WriteLine("Enter weight:");
-			var weight = Double.Parse(Console.ReadLine());
-			
-			Console.WriteLine("Enter height:");
-			var height = Double.Parse(Console.ReadLine());
+			var userController = new UserController(name);
+			if(userController.IsNewUser)
+			{
+				Console.Write("Enter gender: ");
+				var gender = Console.ReadLine();
+				var weight = ParseDouble("weight");
+				var height = ParseDouble("height");
+				var birthdate = ParseDateTime();
+				
+				userController.SetNewUserData(gender, birthdate, weight, height);
+			}			
+			Console.WriteLine(userController.CurrentUser);
+			Console.ReadLine();
+		}
+		private static DateTime ParseDateTime()
+		{
 
-			var userController = new UserController(name, gender, birthdate, weight, height);
-			userController.Save();
+			DateTime birthdate;
+			while(true)
+			{
+				Console.Write("Enter birthdate (dd.MM.yyyy): ");
+				if(DateTime.TryParse(Console.ReadLine(), out birthdate))
+					break;
+				else
+					Console.WriteLine("Wrong format birthdate");
+			}
+			return birthdate;
+		}
+		private static double ParseDouble(string name)
+		{
+			while(true)
+			{
+				Console.Write($"Enter {name}: ");
+				if(double.TryParse(Console.ReadLine(), out double value))
+					return value;
+				else
+					Console.WriteLine($"Wrong format {name}");
+			}
 		}
 	}
 }

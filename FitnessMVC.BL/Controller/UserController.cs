@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
 using FitnessMVC.BL.Model;
 
@@ -7,19 +9,57 @@ namespace FitnessMVC.BL.Controller
 {
 	public class UserController
 	{
-		public UserController(string userName, string genderName, DateTime birthdate, double weight, double height)
+		public UserController(string userName)
 		{
-			var gender = new Gender(genderName);
-			User = new User(userName, gender, birthdate, weight, height);
-		}
-		public User User { get; }
+			if(string.IsNullOrWhiteSpace(userName))
+			{
+				throw new ArgumentNullException("Username cannot be empty.", nameof(userName));
+			}
+			Users = GetUserData();
 
+			CurrentUser = Users.SingleOrDefault(u => u.Name == userName);
+
+			if(CurrentUser == null)
+			{
+				CurrentUser = new User(userName);
+				Users.Add(CurrentUser);
+				IsNewUser = true;
+				Save();
+			}
+		}
+		public List<User> Users { get; }
+
+		public User CurrentUser { get; }
+
+		public bool IsNewUser { get; } = false;
+		public List<User> GetUserData()
+		{
+			var formatter = new BinaryFormatter();
+			using var fileStream = new FileStream("user.dat", FileMode.OpenOrCreate);
+			{
+				if(formatter.Deserialize(fileStream) is List<User> users)
+					return users;
+				else
+					return new List<User>();
+			}
+		}
+
+		public void SetNewUserData(string genderName, DateTime birthdate, double weight = 1, double height = 1)
+		{
+			CurrentUser.Gender = new Gender(genderName);
+			CurrentUser.Birthdate = birthdate;
+			CurrentUser.Weight = weight;
+			CurrentUser.Height = height;
+			
+			Save();
+
+		}
 		public void Save()
 		{
 			var formatter = new BinaryFormatter();
 			using var fileStream = new FileStream("user.dat", FileMode.OpenOrCreate);
 			{
-				formatter.Serialize(fileStream, User);
+				formatter.Serialize(fileStream, Users);
 			}
 		}
 

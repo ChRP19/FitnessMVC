@@ -6,7 +6,7 @@ namespace FitnessMVC.BL.Model
 	[Serializable]
 	public class User
 	{
-		public User(string name, Gender gender, DateTime birthday, double weight, double height)
+		public User(string name, Gender gender, DateTime birthdate, double weight, double height)
 		{
 			#region Verification
 			if(string.IsNullOrWhiteSpace(name))
@@ -17,9 +17,9 @@ namespace FitnessMVC.BL.Model
 			{
 				throw new ArgumentNullException("Gender cannot be null.", nameof(gender));
 			}
-			if(birthday < DateTime.Parse("01.01.1900") || birthday >= DateTime.Now)
+			if(birthdate < DateTime.Parse("01.01.1900") || birthdate >= DateTime.Now)
 			{
-				throw new ArgumentException("Impossible date of birth." ,nameof(birthday));
+				throw new ArgumentException("Impossible date of birth." ,nameof(birthdate));
 			}
 			if(weight <= 0)
 			{
@@ -33,23 +33,33 @@ namespace FitnessMVC.BL.Model
 			
 			Name = name;
 			Gender = gender;
-			Birthday = birthday;
+			Birthdate = birthdate;
 			Weight = weight;
 			Height = height;
 		}
+		public User(string name)
+		{
+			if(string.IsNullOrWhiteSpace(name))
+			{
+				throw new ArgumentNullException("Name can not be empty.", nameof(name));
+			}
+			Name = name;
+		}
 		public string Name { get; }
 
-		public Gender Gender { get; }
+		public Gender Gender { get; set; }
 
-		public DateTime Birthday { get; }
+		public DateTime Birthdate { get; set; }
 
 		public double Weight { get; set; }
 
 		public double Height { get; set; }
+		
+		public int Age { get { return DateTime.Now.Year - Birthdate.Year; } }
 
 		public override string ToString()
 		{
-			return Name;
+			return Name + " " + Age;
 		}
 	}
 

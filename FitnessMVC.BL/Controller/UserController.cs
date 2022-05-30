@@ -32,12 +32,12 @@ namespace FitnessMVC.BL.Controller
 		public User CurrentUser { get; }
 
 		public bool IsNewUser { get; } = false;
-		public List<User> GetUserData()
+		private List<User> GetUserData()
 		{
 			var formatter = new BinaryFormatter();
 			using var fileStream = new FileStream("user.dat", FileMode.OpenOrCreate);
 			{
-				if(formatter.Deserialize(fileStream) is List<User> users)
+				if(fileStream.Length > 0 && formatter.Deserialize(fileStream) is List<User> users)
 					return users;
 				else
 					return new List<User>();
@@ -50,7 +50,7 @@ namespace FitnessMVC.BL.Controller
 			CurrentUser.Birthdate = birthdate;
 			CurrentUser.Weight = weight;
 			CurrentUser.Height = height;
-			
+
 			Save();
 
 		}
@@ -60,15 +60,6 @@ namespace FitnessMVC.BL.Controller
 			using var fileStream = new FileStream("user.dat", FileMode.OpenOrCreate);
 			{
 				formatter.Serialize(fileStream, Users);
-			}
-		}
-
-		public User Load()
-		{
-			var formatter = new BinaryFormatter();
-			using var fileStream = new FileStream("user.dat", FileMode.OpenOrCreate);
-			{
-				return formatter.Deserialize(fileStream) as User;
 			}
 		}
 	}

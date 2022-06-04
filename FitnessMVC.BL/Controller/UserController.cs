@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Runtime.Serialization.Formatters.Binary;
 using FitnessMVC.BL.Model;
 
 namespace FitnessMVC.BL.Controller
 {
-	public class UserController
+	public class UserController : BaseController
 	{
+		private const string USERS_FILE_NAME = "users.dat";
 		public UserController(string userName)
 		{
 			if(string.IsNullOrWhiteSpace(userName))
@@ -34,14 +33,7 @@ namespace FitnessMVC.BL.Controller
 		public bool IsNewUser { get; } = false;
 		private List<User> GetUserData()
 		{
-			var formatter = new BinaryFormatter();
-			using var fileStream = new FileStream("user.dat", FileMode.OpenOrCreate);
-			{
-				if(fileStream.Length > 0 && formatter.Deserialize(fileStream) is List<User> users)
-					return users;
-				else
-					return new List<User>();
-			}
+			return Load<List<User>>(USERS_FILE_NAME) ?? new List<User>();
 		}
 
 		public void SetNewUserData(string genderName, DateTime birthdate, double weight = 1, double height = 1)
@@ -56,11 +48,8 @@ namespace FitnessMVC.BL.Controller
 		}
 		public void Save()
 		{
-			var formatter = new BinaryFormatter();
-			using var fileStream = new FileStream("user.dat", FileMode.OpenOrCreate);
-			{
-				formatter.Serialize(fileStream, Users);
-			}
+			base.Save(USERS_FILE_NAME, Users);
 		}
+
 	}
 }

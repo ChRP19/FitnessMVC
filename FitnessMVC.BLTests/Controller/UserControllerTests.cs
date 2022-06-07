@@ -28,6 +28,7 @@ namespace FitnessMVC.BLTests.Controller
             Assert.AreEqual(weight, controller2.CurrentUser.Weight);
             Assert.AreEqual(height, controller2.CurrentUser.Height);
             Assert.AreEqual(gender, controller2.CurrentUser.Gender.Name);
+            
         }
 
         [TestMethod()]

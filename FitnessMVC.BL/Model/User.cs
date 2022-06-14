@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Reflection.Metadata;
 
 namespace FitnessMVC.BL.Model
@@ -45,18 +46,15 @@ namespace FitnessMVC.BL.Model
 			}
 			Name = name;
 		}
-		public string Name { get; }
-
-		public Gender Gender { get; set; }
-
-		public DateTime Birthdate { get; set; }
-
-		public double Weight { get; set; }
-
-		public double Height { get; set; }
 		
+		public int Id { get; set; }
+		public string Name { get; set; }
+		public Gender Gender { get; set; }
+		public DateTime Birthdate { get; set; } = DateTime.Now;
+		public double Weight { get; set; }
+		public double Height { get; set; }
+		public virtual ICollection<Eating> Eatings { get; set; }
 		public int Age { get { return DateTime.Now.Year - Birthdate.Year; } }
-
 		public override string ToString()
 		{
 			return Name + " " + Age;

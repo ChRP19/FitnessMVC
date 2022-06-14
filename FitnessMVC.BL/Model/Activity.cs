@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace FitnessMVC.BL.Model
 {
@@ -10,8 +11,12 @@ namespace FitnessMVC.BL.Model
 			Name = name;
 			CaloriesPerMinute = caloriesPerMinute;
 		}
-		public string Name { get; }
-		public double CaloriesPerMinute { get; }
+		public Activity() { }
+		public int Id { get; set; }
+		public string Name { get; set; }
+		
+		public virtual ICollection<Exercise> Exercises { get; set; }
+		public double CaloriesPerMinute { get; set; }
 
 		public override string ToString()
 		{

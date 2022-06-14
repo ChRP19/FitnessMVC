@@ -5,6 +5,7 @@ namespace FitnessMVC.BL.Model
 	[Serializable]
 	public class Gender
 	{
+		public int Id { get; set; }
 		public Gender(string name)
 		{
 			if(string.IsNullOrWhiteSpace(name))
@@ -13,7 +14,7 @@ namespace FitnessMVC.BL.Model
 			}
 			Name = name;
 		}
-		public string Name { get; }
+		public string Name { get; set; }
 
 		public override string ToString()
 		{

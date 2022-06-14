@@ -6,19 +6,19 @@ namespace FitnessMVC.BL.Model
 	[Serializable]
 	public class Food
 	{
-		public Food(string name) : this(name, 0, 0, 0, 0){ }
-		public Food(string name, double proteins, double fats, double carbohydrates, double calories)
+		public int Id { get; set; }
+		public Food(string name, double proteins = 0, double fats = 0, double carbohydrates = 0, double calories = 0)
 		{
 			Proteins = proteins / 100.0;
 			Fats = fats / 100.0;
 			Carbohydrates = carbohydrates / 100.0;
 			Calories = calories / 100.0;
 		}
-		public string Name { get; }
-
-		public double Proteins { get; }
-		public double Fats { get; }
-		public double Carbohydrates { get; }
-		public double Calories { get; }
+		public Food() { }
+		public string Name { get; set; }
+		public double Proteins { get; set; }
+		public double Fats { get; set; }
+		public double Carbohydrates { get; set; }
+		public double Calories { get; set; }
 	}
 }

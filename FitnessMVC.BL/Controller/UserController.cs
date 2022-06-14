@@ -5,9 +5,8 @@ using FitnessMVC.BL.Model;
 
 namespace FitnessMVC.BL.Controller
 {
-	public class UserController : BaseController
+	public class UserController : ControllerBase
 	{
-		private const string USERS_FILE_NAME = "users.dat";
 		public UserController(string userName)
 		{
 			if(string.IsNullOrWhiteSpace(userName))
@@ -33,7 +32,7 @@ namespace FitnessMVC.BL.Controller
 		public bool IsNewUser { get; } = false;
 		private List<User> GetUserData()
 		{
-			return Load<List<User>>(USERS_FILE_NAME) ?? new List<User>();
+			return Load<User>() ?? new List<User>();
 		}
 
 		public void SetNewUserData(string genderName, DateTime birthdate, double weight = 1, double height = 1)
@@ -48,7 +47,7 @@ namespace FitnessMVC.BL.Controller
 		}
 		public void Save()
 		{
-			base.Save(USERS_FILE_NAME, Users);
+			base.Save(Users);
 		}
 
 	}
